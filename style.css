@@ -1,0 +1,47 @@
+body {
+    margin: 0px
+}
+
+h1,h2 {
+    text-align: center;
+    color: rgb(108, 108, 232);
+    
+    padding: 24px;
+}
+
+h2 {
+    padding: 12px;
+}
+
+button {
+    background-color: rgb(108, 105, 214);
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 4px;
+    margin: 10px;
+    color: white;
+    border: 0px;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 24px;
+}
+
+.scorecard {
+    display: flex;
+    justify-content: center;
+}
+
+.human, .AI {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 24px;
+    padding-right: 24px;
+    color: rgb(108, 105, 214);
+}

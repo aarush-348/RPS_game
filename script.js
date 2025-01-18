@@ -14,23 +14,14 @@ function getComputerChoice()
 
 function getHumanChoice()
 {
-    let choice = prompt("Rock, Paper, Scizzors! (R, P or S)");
+    const button = document.querySelector("button")
 
-    if(choice.toLowerCase() == "r")
-        return 0;
-
-    else if (choice.toLowerCase() == "p")
-        return 1;
-    
-
-    else if (choice.toLowerCase() == "s")
-        return 2;
-    
-
-    else 
+    for (i in button)
     {
-        alert("Incorrect choice")
-        getHumanChoice();
+        button[i].addEventListener("click", () => 
+        {
+            alert(i);
+        })
     }
 }
 
@@ -68,13 +59,13 @@ function winDecider(humanChoice, computerChoice)
 
 function playGame()
 {
-    for(let i = 0; i < 5; i++)
-    {
-        const humanSelection = getHumanChoice();
-        const computerSelection = Math.trunc(getComputerChoice());
+    // for(let i = 0; i < 5; i++)
+    // {
+    //     const humanSelection = getHumanChoice();
+    //     const computerSelection = Math.trunc(getComputerChoice());
 
-        playRound(humanSelection, computerSelection);
-    }
+    //     playRound(humanSelection, computerSelection);
+    // }
 }
 
 function result(humanScore, computerScore)
@@ -82,14 +73,14 @@ function result(humanScore, computerScore)
     console.log("Your score = " + humanScore)
     console.log("Computer score = " + computerScore)
 
-    if (computerScore > humanScore)
-        alert("Computer won the game!")
+    // if (computerScore > humanScore)
+    //     alert("Computer won the game!")
 
-    else if (computerScore == humanScore)
-        alert("The game is a Tie!")
+    // else if (computerScore == humanScore)
+    //     alert("The game is a Tie!")
 
-    else if (humanScore > computerScore)
-        alert("You won the game!")
+    // else if (humanScore > computerScore)
+    //     alert("You won the game!")
 }
 
 let humanScore = 0;
