@@ -6,87 +6,100 @@
 // 1 beats 0
 // 2 beats 1
 
-function getComputerChoice()
+function getcompChoice()
 {
     return Math.random() * 3;
-
 }
 
-function getHumanChoice()
+function gethmnChoice()
 {
-    const button = document.querySelector("button")
-
-    for (i in button)
+    const rock = document.querySelector("#rock")
+    const paper = document.querySelector("#paper")
+    const scizzors = document.querySelector("#scizzors")
+    
+    rock.addEventListener("click", () => 
     {
-        button[i].addEventListener("click", () => 
-        {
-            alert(i);
-        })
-    }
-}
+        alert("rock");
+        return 0;
+    });
 
-function playRound(humanChoice, computerChoice)
-{
-    if (computerChoice == 0)
-        alert("The computer's choice is Rock! " +  winDecider(humanChoice, computerChoice))
-
-    if (computerChoice == 1)
-        alert("The computer's choice is Paper! " +  winDecider(humanChoice, computerChoice))
-
-    if (computerChoice == 2)
-        alert("The computer's choice is Scizzors! " +  winDecider(humanChoice, computerChoice))
-}
-
-
-function winDecider(humanChoice, computerChoice)
-{
-    if ((humanChoice == 0 && computerChoice == 2) || (humanChoice == 1 && computerChoice == 0 ) || (humanChoice == 2 && computerChoice == 1 ))
+    paper.addEventListener("click", () => 
     {
-        
-        humanScore++
-        return "You won!"
+        alert("paper");
+        return 1;
+    });
+
+    scizzors.addEventListener("click", () => 
+    {
+        alert("scizzors");
+        return 2;
+    });
+}
+
+function playRound(hmnChoice, compChoice)
+{
+    if (compChoice == 0)
+        alert("The computer's choice is Rock! " +  winDecider(hmnChoice, compChoice));
+
+    if (compChoice == 1)
+        alert("The computer's choice is Paper! " +  winDecider(hmnChoice, compChoice));
+
+    if (compChoice == 2)
+        alert("The computer's choice is Scizzors! " +  winDecider(hmnChoice, compChoice));
+}
+
+
+function winDecider(hmnChoice, compChoice)
+{
+    if ((hmnChoice == 0 && compChoice == 2) || (hmnChoice == 1 && compChoice == 0 ) || (hmnChoice == 2 && compChoice == 1 ))
+    {
+        hmnScore++;
+        return "You won!";
     }
 
-    else if (humanChoice == computerChoice)
-        return "It's a tie!"
+    else if (hmnChoice == compChoice)
+        return "It's a tie!";
 
     else 
     {
-        computerScore++
-        return "Computer Won!"
+        compScore++;
+        return "comp Won!";
     }
+
 }
 
 function playGame()
 {
-    // for(let i = 0; i < 5; i++)
-    // {
-    //     const humanSelection = getHumanChoice();
-    //     const computerSelection = Math.trunc(getComputerChoice());
+    while (hmnScore != 5 || compScore != 5)
+    {
+        const hmnSelection = gethmnChoice();
+        const compSelection = Math.trunc(getcompChoice());
 
-    //     playRound(humanSelection, computerSelection);
-    // }
+        playRound(hmnSelection, compSelection);
+    }
+
+    result(hmnScore, compScore);
 }
 
-function result(humanScore, computerScore)
+function result(hmnScore, compScore)
 {
-    console.log("Your score = " + humanScore)
-    console.log("Computer score = " + computerScore)
+    console.log("Your score = " + hmnScore);
+    console.log("comp score = " + compScore);
 
-    // if (computerScore > humanScore)
-    //     alert("Computer won the game!")
-
-    // else if (computerScore == humanScore)
-    //     alert("The game is a Tie!")
-
-    // else if (humanScore > computerScore)
-    //     alert("You won the game!")
+    if (hmnScore == 5)
+    {
+        return "You won the game!"
+    }
+    
+    else if (compScore == 5)
+    {
+        return "you lost the game!"
+    }
 }
 
-let humanScore = 0;
-let computerScore = 0;
+let hmnScore = 0;
+let compScore = 0;
 
-playGame()
-result(humanScore, computerScore)
+playGame();
 
 
