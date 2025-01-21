@@ -42,10 +42,10 @@ function gethmnChoice()
 
 function playRound(hmnChoice, compChoice)
 {
-    const resultDiv = document.querySelector(".result");
+    // resultDiv.removeChild(resultText)
 
-    const resultText = document.createElement("h3");
-
+    // const resultDiv = document.querySelector(".result");
+    // const resultText = document.createElement("h3");
     const winDeciderText = winDecider(hmnChoice, compChoice);
 
     // if (compChoice == 0)
@@ -69,8 +69,11 @@ function winDecider(hmnChoice, compChoice)
     const hmn = document.querySelector(".human");
     const comp = document.querySelector(".comp");
 
-    const hmnChoiceP = document.createElement("h4")
-    const compChoiceP = document.createElement("h4")
+    // const hmnChoiceP = document.createElement("h4")
+    // const compChoiceP = document.createElement("h4")
+
+    // hmn.removeChild(hmnChoiceP)
+    // comp.removeChild(compChoiceP)
 
     hmnChoiceP.textContent = choices[hmnChoice]
     compChoiceP.textContent = choices[compChoice]
@@ -97,18 +100,24 @@ function winDecider(hmnChoice, compChoice)
 
 function playGame()
 {
-    //while (hmnScore != 5 || compScore != 5)
+    if(hmnScore == 5 || compScore == 5)
     {
-        gethmnChoice().then((choice) => {
-            const hmnSelection = choice;
+        finalResult.textContent = (hmnScore == 5 ? "You won the game!" : "You lost the game!");
+        finalResult.style.color = (hmnScore == 5 ? "green" : "red")
 
-            const compSelection = Math.trunc(getcompChoice());
-
-            playRound(hmnSelection, compSelection);
-
-            result(hmnScore, compScore);
-        });
+        resultDiv.appendChild(finalResult)
+        return;
     }
+
+    gethmnChoice().then((choice) => {
+        hmnSelection = choice;
+        compSelection = Math.trunc(getcompChoice());
+
+        playRound(hmnSelection, compSelection);
+        result(hmnScore, compScore);
+
+        playGame()
+    });
 }
 
 function result(hmnScore, compScore)
@@ -116,8 +125,8 @@ function result(hmnScore, compScore)
     const hmn = document.querySelector(".human");
     const comp = document.querySelector(".comp");
 
-    const hmnScoreP = document.createElement("p");
-    const compScoreP = document.createElement("p");
+    // const hmnScoreP = document.createElement("p");
+    // const compScoreP = document.createElement("p");
 
     hmnScoreP.classList.add("humanScore")
     compScoreP.classList.add("CompScore")
@@ -145,7 +154,21 @@ function result(hmnScore, compScore)
 let hmnScore = 0;
 let compScore = 0;
 
+let hmnSelection, compSelection;
+
 const choices = ["Rock", "Paper", "Scizzors"]
+
+const resultDiv = document.querySelector(".result");
+const resultText = document.createElement("h3");
+// const winDeciderText = winDecider(hmnSelection, compSelection);
+
+const hmnChoiceP = document.createElement("h4")
+const compChoiceP = document.createElement("h4")
+
+const hmnScoreP = document.createElement("p");
+const compScoreP = document.createElement("p");
+ 
+const finalResult = document.createElement("h2")
 
 playGame();
 
