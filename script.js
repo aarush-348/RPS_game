@@ -42,19 +42,42 @@ function gethmnChoice()
 
 function playRound(hmnChoice, compChoice)
 {
+    const resultDiv = document.querySelector(".result");
+
+    const resultText = document.createElement("h3");
+
+    const winDeciderText = winDecider(hmnChoice, compChoice);
+
     // if (compChoice == 0)
-    //     alert("The computer's choice is Rock! " +  winDecider(hmnChoice, compChoice));
+    resultText.textContent = `The computer's choice is ${choices[compChoice]}! ${winDeciderText}`;
 
-    // if (compChoice == 1)
-    //     alert("The computer's choice is Paper! " +  winDecider(hmnChoice, compChoice));
+    resultText.style.display = "flex";
+    resultText.style.justifyContent = "center";
 
-    // if (compChoice == 2)
-    //     alert("The computer's choice is Scizzors! " +  winDecider(hmnChoice, compChoice));
+    if (winDeciderText == "You won!")
+        resultText.style.color = "green";
+
+    else if (winDeciderText == "You lose")
+        resultText.style.color = "red";
+
+     resultDiv.appendChild(resultText);
 }
 
 
 function winDecider(hmnChoice, compChoice)
 {
+    const hmn = document.querySelector(".human");
+    const comp = document.querySelector(".comp");
+
+    const hmnChoiceP = document.createElement("h4")
+    const compChoiceP = document.createElement("h4")
+
+    hmnChoiceP.textContent = choices[hmnChoice]
+    compChoiceP.textContent = choices[compChoice]
+
+    hmn.appendChild(hmnChoiceP)
+    comp.appendChild(compChoiceP)    
+
     if ((hmnChoice == 0 && compChoice == 2) || (hmnChoice == 1 && compChoice == 0 ) || (hmnChoice == 2 && compChoice == 1 ))
     {
         hmnScore++;
@@ -67,7 +90,7 @@ function winDecider(hmnChoice, compChoice)
     else 
     {
         compScore++;
-        return "comp Won!";
+        return "You lose";
     }
 
 }
@@ -90,6 +113,21 @@ function playGame()
 
 function result(hmnScore, compScore)
 {
+    const hmn = document.querySelector(".human");
+    const comp = document.querySelector(".comp");
+
+    const hmnScoreP = document.createElement("p");
+    const compScoreP = document.createElement("p");
+
+    hmnScoreP.classList.add("humanScore")
+    compScoreP.classList.add("CompScore")
+
+    hmnScoreP.textContent = hmnScore;
+    compScoreP.textContent = compScore;
+
+    hmn.appendChild(hmnScoreP)
+    comp.appendChild(compScoreP)
+
     console.log("Your score = " + hmnScore);
     console.log("comp score = " + compScore);
 
@@ -106,6 +144,8 @@ function result(hmnScore, compScore)
 
 let hmnScore = 0;
 let compScore = 0;
+
+const choices = ["Rock", "Paper", "Scizzors"]
 
 playGame();
 

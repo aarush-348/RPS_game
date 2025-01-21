@@ -37,7 +37,7 @@ button {
     justify-content: center;
 }
 
-.human, .AI {
+.human, .comp {
     display: flex;
     flex-direction: column;
     align-items: center;
