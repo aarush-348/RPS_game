@@ -13,39 +13,43 @@ function getcompChoice()
 
 function gethmnChoice()
 {
-    const rock = document.querySelector("#rock")
-    const paper = document.querySelector("#paper")
-    const scizzors = document.querySelector("#scizzors")
-    
-    rock.addEventListener("click", () => 
-    {
-        alert("rock");
-        return 0;
-    });
 
-    paper.addEventListener("click", () => 
+    return new Promise((resolve, reject) => 
     {
-        alert("paper");
-        return 1;
-    });
-
-    scizzors.addEventListener("click", () => 
-    {
-        alert("scizzors");
-        return 2;
-    });
+        const rock = document.querySelector("#rock")
+        const paper = document.querySelector("#paper")
+        const scizzors = document.querySelector("#scizzors")
+        
+        rock.addEventListener("click", () => 
+            {
+                console.log("rock");
+                resolve(0);
+            });
+        
+            paper.addEventListener("click", () => 
+            {
+                console.log("paper");
+                resolve(1);
+            });
+        
+            scizzors.addEventListener("click", () => 
+            {
+                console.log("scizzors");
+                resolve(2);
+            });
+    })
 }
 
 function playRound(hmnChoice, compChoice)
 {
-    if (compChoice == 0)
-        alert("The computer's choice is Rock! " +  winDecider(hmnChoice, compChoice));
+    // if (compChoice == 0)
+    //     alert("The computer's choice is Rock! " +  winDecider(hmnChoice, compChoice));
 
-    if (compChoice == 1)
-        alert("The computer's choice is Paper! " +  winDecider(hmnChoice, compChoice));
+    // if (compChoice == 1)
+    //     alert("The computer's choice is Paper! " +  winDecider(hmnChoice, compChoice));
 
-    if (compChoice == 2)
-        alert("The computer's choice is Scizzors! " +  winDecider(hmnChoice, compChoice));
+    // if (compChoice == 2)
+    //     alert("The computer's choice is Scizzors! " +  winDecider(hmnChoice, compChoice));
 }
 
 
@@ -70,15 +74,18 @@ function winDecider(hmnChoice, compChoice)
 
 function playGame()
 {
-    while (hmnScore != 5 || compScore != 5)
+    //while (hmnScore != 5 || compScore != 5)
     {
-        const hmnSelection = gethmnChoice();
-        const compSelection = Math.trunc(getcompChoice());
+        gethmnChoice().then((choice) => {
+            const hmnSelection = choice;
 
-        playRound(hmnSelection, compSelection);
+            const compSelection = Math.trunc(getcompChoice());
+
+            playRound(hmnSelection, compSelection);
+
+            result(hmnScore, compScore);
+        });
     }
-
-    result(hmnScore, compScore);
 }
 
 function result(hmnScore, compScore)
