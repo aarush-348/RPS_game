@@ -1,54 +1,31 @@
-// rock = 0
-// paper = 1
-// scissor = 2
-
-// 0 beats 2
-// 1 beats 0
-// 2 beats 1
-
+// Randomly selects the choice for the computer
 function getcompChoice()
 {
-    return Math.random() * 3;
+    return Math.trunc(Math.random() * 3);
 }
 
+// Function to get the choice from the user
 function gethmnChoice()
 {
-
+    // Have to use a promise as it is a async fucntion
     return new Promise((resolve, reject) => 
     {
-        const rock = document.querySelector("#rock")
-        const paper = document.querySelector("#paper")
-        const scizzors = document.querySelector("#scizzors")
-        
-        rock.addEventListener("click", () => 
-            {
-                console.log("rock");
-                resolve(0);
-            });
-        
-            paper.addEventListener("click", () => 
-            {
-                console.log("paper");
-                resolve(1);
-            });
-        
-            scizzors.addEventListener("click", () => 
-            {
-                console.log("scizzors");
-                resolve(2);
-            });
-    })
+        const rock = document.querySelector("#rock");
+        const paper = document.querySelector("#paper");
+        const scizzors = document.querySelector("#scizzors");
+
+        //Listens to the click of the buttons
+        rock.addEventListener("click", () => {resolve(0)});
+        paper.addEventListener("click", () => {resolve(1)});
+        scizzors.addEventListener("click", () => {resolve(2)});
+    });
 }
 
+// Plays a round
 function playRound(hmnChoice, compChoice)
 {
-    // resultDiv.removeChild(resultText)
-
-    // const resultDiv = document.querySelector(".result");
-    // const resultText = document.createElement("h3");
     const winDeciderText = winDecider(hmnChoice, compChoice);
 
-    // if (compChoice == 0)
     resultText.textContent = `The computer's choice is ${choices[compChoice]}! ${winDeciderText}`;
 
     resultText.style.display = "flex";
@@ -63,23 +40,17 @@ function playRound(hmnChoice, compChoice)
      resultDiv.appendChild(resultText);
 }
 
-
+// Decides the winner of the round
 function winDecider(hmnChoice, compChoice)
 {
     const hmn = document.querySelector(".human");
     const comp = document.querySelector(".comp");
 
-    // const hmnChoiceP = document.createElement("h4")
-    // const compChoiceP = document.createElement("h4")
+    hmnChoiceP.textContent = choices[hmnChoice];
+    compChoiceP.textContent = choices[compChoice];
 
-    // hmn.removeChild(hmnChoiceP)
-    // comp.removeChild(compChoiceP)
-
-    hmnChoiceP.textContent = choices[hmnChoice]
-    compChoiceP.textContent = choices[compChoice]
-
-    hmn.appendChild(hmnChoiceP)
-    comp.appendChild(compChoiceP)    
+    hmn.appendChild(hmnChoiceP);
+    comp.appendChild(compChoiceP);
 
     if ((hmnChoice == 0 && compChoice == 2) || (hmnChoice == 1 && compChoice == 0 ) || (hmnChoice == 2 && compChoice == 1 ))
     {
@@ -95,23 +66,23 @@ function winDecider(hmnChoice, compChoice)
         compScore++;
         return "You lose";
     }
-
 }
 
+// Plays the game recursivley till the result
 function playGame()
 {
     if(hmnScore == 5 || compScore == 5)
     {
         finalResult.textContent = (hmnScore == 5 ? "You won the game!" : "You lost the game!");
-        finalResult.style.color = (hmnScore == 5 ? "green" : "red")
+        finalResult.style.color = (hmnScore == 5 ? "green" : "red");
 
-        resultDiv.appendChild(finalResult)
+        resultDiv.appendChild(finalResult);
         return;
     }
 
     gethmnChoice().then((choice) => {
         hmnSelection = choice;
-        compSelection = Math.trunc(getcompChoice());
+        compSelection = getcompChoice();
 
         playRound(hmnSelection, compSelection);
         result(hmnScore, compScore);
@@ -120,35 +91,29 @@ function playGame()
     });
 }
 
+// Returns the result of the round
 function result(hmnScore, compScore)
 {
     const hmn = document.querySelector(".human");
     const comp = document.querySelector(".comp");
 
-    // const hmnScoreP = document.createElement("p");
-    // const compScoreP = document.createElement("p");
-
-    hmnScoreP.classList.add("humanScore")
-    compScoreP.classList.add("CompScore")
+    hmnScoreP.classList.add("humanScore");
+    compScoreP.classList.add("CompScore");
 
     hmnScoreP.textContent = hmnScore;
     compScoreP.textContent = compScore;
 
-    hmn.appendChild(hmnScoreP)
-    comp.appendChild(compScoreP)
+    hmn.appendChild(hmnScoreP);
+    comp.appendChild(compScoreP);
 
     console.log("Your score = " + hmnScore);
     console.log("comp score = " + compScore);
 
     if (hmnScore == 5)
-    {
-        return "You won the game!"
-    }
+        return "You won the game!";
     
     else if (compScore == 5)
-    {
-        return "you lost the game!"
-    }
+        return "you lost the game!";
 }
 
 let hmnScore = 0;
@@ -160,15 +125,14 @@ const choices = ["Rock", "Paper", "Scizzors"]
 
 const resultDiv = document.querySelector(".result");
 const resultText = document.createElement("h3");
-// const winDeciderText = winDecider(hmnSelection, compSelection);
 
-const hmnChoiceP = document.createElement("h4")
-const compChoiceP = document.createElement("h4")
+const hmnChoiceP = document.createElement("h4");
+const compChoiceP = document.createElement("h4");
 
 const hmnScoreP = document.createElement("p");
 const compScoreP = document.createElement("p");
  
-const finalResult = document.createElement("h2")
+const finalResult = document.createElement("h2");
 
 playGame();
 
